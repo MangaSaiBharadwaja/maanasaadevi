@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sri Maanasaa Devi Temple | Chittedu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --saffron: #FF9933;
+            --maroon: #800000;
+            --cream: #FFFDF0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--cream); scroll-behavior: smooth; }
+
+        /* --- Navbar --- */
+        nav {
+            background: rgba(128, 0, 0, 0.95);
+            padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; width: 100%; z-index: 2000;
+            border-bottom: 3px solid var(--gold);
+        }
+        .nav-links a { color: white; text-decoration: none; margin-left: 15px; font-weight: 600; font-size: 0.85rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+
+        /* --- Hero --- */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://cdn.dollsofindia.com/images/p/goddess-pictures/manasa-devi-snake-goddess-PZ32_l.jpg') center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white;
+        }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+
+        /* --- Carousel --- */
+        .carousel-container { width: 100%; height: 400px; overflow: hidden; position: relative; border-bottom: 5px solid var(--gold); }
+        .carousel-slide { display: flex; width: 100%; height: 100%; transition: transform 0.8s ease-in-out; }
+        .carousel-slide img { min-width: 100%; object-fit: cover; }
+
+        /* --- Common Section Styles --- */
+        section { padding: 80px 10%; }
+        .section-title { font-family: 'Cinzel', serif; color: var(--maroon); font-size: 2.2rem; text-align: center; margin-bottom: 30px; }
+
+        /* --- Donation Section --- */
+        .donation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center; background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .upi-card { background: linear-gradient(135deg, var(--maroon), #b30000); color: white; padding: 30px; border-radius: 15px; border-left: 10px solid var(--gold); }
+        .qr-placeholder { background: #f4f4f4; border: 2px dashed var(--gold); height: 250px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 15px; }
+        .qr-placeholder img { max-height: 100%; }
+
+        /* --- Contact Section --- */
+        .contact-box { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .form-container { width: 100%; min-height: 600px; background: #eee; display: flex; align-items: center; justify-content: center; }
+
+        /* --- Gallery --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .gallery-item { height: 180px; border-radius: 10px; overflow: hidden; border: 2px solid var(--gold); transition: 0.3s; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-item:hover { transform: scale(1.05); }
+
+        /* --- Spiritual Library --- */
+        .tab-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 20px; border: 2px solid var(--maroon); cursor: pointer; border-radius: 50px; font-weight: bold; }
+        .tab-btn.active { background: var(--maroon); color: white; }
+        .tab-content { display: none; background: #fff; padding: 30px; border-radius: 15px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
+        .tab-content.active { display: block; }
+
+        footer { background: #111; color: white; padding: 30px; text-align: center; border-top: 5px solid var(--gold); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.1rem;">SRI MAANASAA DEVI</div>
+        <div class="nav-links">
+            <a href="#history">History</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#stotra">Prayers</a>
+            <a href="#donation">Donations</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Maanasaa Devi</h1>
+        <p style="color: var(--gold); letter-spacing: 2px;">Chittedu • Kota Mandal • Tirupathi</p>
+    </header>
+
+    <div class="carousel-container">
+        <div class="carousel-slide" id="carousel">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Manasha_Mandir%2C_%28Lala_Bagan%29_Simla_Street%2C_Kolkata.jpg/1280px-Manasha_Mandir%2C_%28Lala_Bagan%29_Simla_Street%2C_Kolkata.jpg" alt="Mandir">
+            <img src="https://rukminim2.flixcart.com/image/850/1000/kovsvbk0/religious-frame/6/z/v/dcreation4005-suninow-original-imag38hk4fj6zgf4.jpeg?q=90" alt="Maanasaa Devi">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Bangladesh_o_india_orientale%2C_la_dea_serpente_manasa%2C_XI_secolo.jpg" alt="Ancient Statue">
+        </div>
+    </div>
+
+    <section id="history" style="background: white;">
+        <div id="google_translate_element"></div>
+        <h2 class="section-title">Temple History</h2>
+        <p>The <strong>Sri Maanasaa Devi Temple</strong> in Chittedu village is a center of divine energy. Revered as the Goddess of Snakes, Maanasaa Devi provides protection and prosperity to all her devotees in the Tirupathi district.</p>
+    </section>
+
+    <section id="donation">
+        <h2 class="section-title">Temple Contributions</h2>
+        <div class="donation-grid">
+            <div class="upi-card">
+                <h3>Digital Donation</h3>
+                <p style="margin: 15px 0;">Your contributions help in temple maintenance and Annadanam programs.</p>
+                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
+                    <p><strong>Owner:</strong> [Your Name/Temple Trust Name]</p>
+                    <p><strong>UPI ID:</strong> <span style="color: var(--gold);">yourname@upi</span></p>
+                    <p><strong>Bank:</strong> [Bank Name, Gudur Branch]</p>
+                </div>
+            </div>
+            <div class="qr-placeholder">
+                <div>
+                    <img src="images/qr-code.png" onerror="this.style.display='none'" alt="UPI QR Code">
+                    <p style="color: #666;">[Scan QR Code to Donate]<br><small>(Place your QR image in images/qr-code.png)</small></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" style="background: #fdfaf0;">
+        <h2 class="section-title">Built Images Gallery</h2>
+        <div class="gallery-grid">
+            <script>
+                for(let i=1; i<=20; i++) {
+                    document.write(`
+                        <div class="gallery-item">
+                            <img src="images/${i}.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Temple+Photo+${i}'" alt="Temple Image">
+                        </div>
+                    `);
+                }
+            </script>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-box">
+            <div class="form-container">
+                <p style="color:#666; text-align: center; padding: 20px;">
+                    <strong>[Google Form Space]</strong><br>
+                    To add your form: Replace this text with <br> 
+                    <code>&lt;iframe src="YOUR_GOOGLE_FORM_URL" width="100%" height="600"&gt;&lt;/iframe&gt;</code>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="stotra">
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="openTab(event, 'ashtottara')">Ashtottara</button>
+            <button class="tab-btn" onclick="openTab(event, 'stotram')">Stotram</button>
+            <button class="tab-btn" onclick="openTab(event, 'dwadasa')">Dwadasa Nama</button>
+        </div>
+        <div id="ashtottara" class="tab-content active">
+            <h3 class="stotra-title">Ashtottara Shatanamavali</h3>
+            <p style="text-align: center;">ōṁ mānasādēvyai namaḥ | ōṁ parāśaktyai namaḥ | ōṁ mahādēvyai namaḥ...</p>
+        </div>
+        <div id="stotram" class="tab-content">
+            <h3 class="stotra-title">Dhanvantari Kruta Stotram</h3>
+            <p style="text-align: center;">Namaḥ siddhisvarūpāyai siddhidāyai namō namaḥ...</p>
+        </div>
+        <div id="dwadasa" class="tab-content">
+            <h3 class="stotra-title">Dwadasa Nama Stotram</h3>
+            <p style="text-align: center;">1. Jaratkāru 2. Jagadgaurī 3. Manasā...</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Sri Maanasaa Devi Temple, Chittedu</p>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        // Carousel Logic
+        let index = 0;
+        setInterval(() => {
+            const slides = document.getElementById('carousel');
+            index = (index + 1) % 3;
+            slides.style.transform = `translateX(-${index * 100}%)`;
+        }, 4000);
+
+        // Tab Logic
+        function openTab(evt, tabName) {
+            var i, content, links;
+            content = document.getElementsByClassName("tab-content");
+            for (i = 0; i < content.length; i++) { content[i].style.display = "none"; }
+            links = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < links.length; i++) { links[i].className = links[i].className.replace(" active", ""); }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>

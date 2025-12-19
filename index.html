@@ -3,217 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sri Maanasaa Devi Temple | Chittedu</title>
+    <title>Sri Maanasaa Devi Temple | Spiritual Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-gold: #D4AF37;
-            --deep-saffron: #FF9933;
-            --temple-maroon: #800000;
-            --soft-cream: #FFFDD0;
-            --dark-text: #2c2c2c;
+            --gold: #D4AF37;
+            --saffron: #FF9933;
+            --maroon: #800000;
+            --cream: #FFFDF0;
+            --glass: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--cream); overflow-x: hidden; scroll-behavior: smooth; }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--soft-cream);
-            color: var(--dark-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* --- Navigation --- */
+        /* --- Stylish Navbar --- */
         nav {
-            background: rgba(128, 0, 0, 0.9);
-            padding: 1rem 5%;
+            background: rgba(128, 0, 0, 0.95);
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: fixed; width: 100%; z-index: 2000;
+            border-bottom: 3px solid var(--gold);
+            backdrop-filter: blur(10px);
         }
+        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
 
-        .logo {
-            font-family: 'Cinzel', serif;
-            color: var(--primary-gold);
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-
-        /* --- Hero Section --- */
+        /* --- Parallax Hero --- */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://cdn.dollsofindia.com/images/p/goddess-pictures/manasa-devi-snake-goddess-PZ32_l.jpg?q=80&w=1920') center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 20px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Bangladesh_o_india_orientale%2C_la_dea_serpente_manasa%2C_XI_secolo.jpg/500px-Bangladesh_o_india_orientale%2C_la_dea_serpente_manasa%2C_XI_secolo.jpg?q=80&w=1920') center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
         }
+        .hero h1 { font-family: 'Cinzel', serif; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); animation: fadeIn 1.5s; } 
+        .hero p { font-size: 1.5rem; color: var(--gold); letter-spacing: 3px; margin-top: 20px; }
 
-        .hero h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            animation: fadeInDown 1.5s ease;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            animation: fadeInUp 1.5s ease;
-        }
-
-        /* --- Highlights Section --- */
-        .highlights {
-            padding: 80px 10%;
-            text-align: center;
-        }
-
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            color: var(--temple-maroon);
-            margin-bottom: 50px;
+        /* --- Carousel Section --- */
+        .carousel-container {
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
             position: relative;
+            background: #000;
+            border-bottom: 5px solid var(--gold);
+        }
+        .carousel-slide {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+        .carousel-slide img {
+            min-width: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
         }
 
-        .section-title::after {
-            content: '';
-            width: 80px;
-            height: 3px;
-            background: var(--deep-saffron);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+        /* --- History Section --- */
+        .history-section { padding: 80px 10%; background: white; line-height: 1.8; }
+        .translate-box { margin-bottom: 20px; padding: 10px; background: #f4f4f4; border-radius: 8px; display: inline-block; }
 
-        .grid {
+        /* --- Gallery Grid --- */
+        .gallery-section { padding: 80px 5%; background: var(--cream); text-align: center; }
+        .gallery-section > p { color: #666; margin-top: 10px; font-size: 1.1rem; }
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
+        .gallery-item {
+            height: 200px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            transition: 0.3s;
+        }
+        .gallery-item:hover { transform: scale(1.05); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-            opacity: 0; /* For JS animation */
-            transform: translateY(30px);
-        }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-bottom: 5px solid var(--deep-saffron);
+        /* --- Video Section --- */
+        .video-section { padding: 80px 5%; background: #f9f4e8; text-align: center; }
+        .video-container { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 40px; 
         }
+        .video-card {
+            background: white; padding: 20px; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: transform 0.4s, box-shadow 0.4s;
+            border: 2px solid var(--gold);
+        }
+        .video-card:hover { transform: scale(1.03) translateY(-10px); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3); }
+        iframe { border-radius: 15px; width: 100%; max-width: 500px; border: none; }
 
-        .card h3 {
-            color: var(--temple-maroon);
-            margin-bottom: 15px;
+        /* --- Spiritual Library (Tabs) --- */
+        .library { padding: 100px 10%; background: white; }
+        .tab-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .tab-btn {
+            padding: 12px 25px; border: 2px solid var(--maroon); background: none;
+            cursor: pointer; font-family: 'Cinzel', serif; font-weight: bold;
+            transition: 0.4s; border-radius: 50px;
         }
+        .tab-btn.active { background: var(--maroon); color: white; }
+        .tab-content { 
+            display: none; background: var(--cream); padding: 40px; 
+            border-radius: 20px; border-left: 8px solid var(--saffron);
+            max-height: 500px; overflow-y: auto; box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+        .tab-content.active { display: block; animation: fadeIn 0.8s; }
 
-        /* --- Location Section --- */
-        .info-strip {
-            background: var(--temple-maroon);
-            color: white;
-            padding: 40px 5%;
-            text-align: center;
-        }
+        /* --- Text Styling --- */
+        .stotra-text { font-size: 1.1rem; line-height: 2; white-space: pre-wrap; text-align: center; color: #444; }
+        .stotra-title { font-family: 'Cinzel', serif; color: var(--maroon); margin-bottom: 20px; display: block; font-size: 1.8rem; }
 
         /* --- Animations --- */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .reveal {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-            transition: all 0.8s ease-out;
-        }
-
-        footer {
-            background: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
-        }
+        footer { background: #111; color: white; padding: 40px; text-align: center; border-top: 5px solid var(--gold); }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">SRI MAANASAA DEVI</div>
+        <div style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.4rem;">SRI MAANASAA DEVI</div>
+        <div class="nav-links">
+            <a href="#history">History</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#videos">Darshan</a>
+            <a href="#stotra">Spirituals</a>
+        </div>
     </nav>
 
-    <section class="hero">
-        <h1>Maanasaa Devi Temple</h1>
-        <p>Chittedu Village • Kota Mandal • Tirupathi District</p>
+    <header class="hero">
+        <h1 class="reveal">Maanasaa Devi</h1>
+        <p class="reveal">Chittedu Village  •Kota Mandal  •Tirupathi District</p>
+    </header>
+
+    
+    <section id="history" class="history-section">
+        <div id="google_translate_element" class="translate-box"></div>
+        <h2 style="font-family: 'Cinzel'; color: var(--maroon); font-size: 2.5rem; margin-bottom: 20px;">Temple History</h2>
+        <div class="history-content">
+            <p>The <strong>Sri Maanasaa Devi Temple</strong> in Chittedu village is a sacred destination steeped in spiritual significance. Maanasaa Devi, the sister of Vasuki and the daughter of Sage Kashyapa, is revered as the Goddess of Snakes and the protector against snake-related afflictions (Naaga Dosha).</p>
+            <br>
+            <p>Built with the devotion of the local community in the Gudur Division, the temple has become a focal point for pilgrims visiting the Tirupathi district. The temple architecture follows traditional Vastu Shastra, ensuring a flow of positive energy. Legend says that those who offer prayers here with a pure heart are shielded from poisons and find peace in their family lives.</p>
+        </div>
     </section>
 
-    <section class="highlights">
-        <h2 class="section-title">Temple Highlights</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Spiritual Serenity</h3>
-                <p>Nestled in the peaceful Chittedu village, providing a meditative atmosphere for all devotees seeking the blessings of the Serpent Goddess.</p>
+    <section id="videos" class="video-section">
+        <h2 style="font-family: 'Cinzel'; font-size: 2.5rem; color: var(--maroon);">Vaibhavam (Telugu)</h2>
+        <div class="video-container">
+            <div class="video-card">
+                <iframe width="500" height="280" 
+                    src="https://www.youtube.com/embed/dUIk-hDZVas?rel=0&modestbranding=1" 
+                    title="Snake idols" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                <p style="margin-top:10px; font-weight:bold;">Snake idols</p>
             </div>
-            <div class="card">
-                <h3>Architectural Heritage</h3>
-                <p>Traditional Dravidian design elements that reflect the rich cultural history of the Gudur division and the Tirupathi region.</p>
-            </div>
-            <div class="card">
-                <h3>Sacred Festivals</h3>
-                <p>Special Poojas and Alankarams conducted during Nagapanchami and Navaratri, attracting devotees from all over Kota Mandal.</p>
+            <div class="video-card">
+                <iframe width="500" height="280" 
+                    src="https://www.youtube.com/embed/wnzGUxiww-k?rel=0&modestbranding=1" 
+                    title="Maanasaa Devi Story" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                <p style="margin-top:10px; font-weight:bold;">Maanasaa Devi Story</p>
             </div>
         </div>
     </section>
 
-    <section class="info-strip">
-        <h2>Location & Access</h2>
-        <p>Situated in Chittedu Village, Kota Mandal. Easily accessible via the Chennai-Kolkata Highway near Gudur.</p>
+    <section id="stotra" class="library">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h2 style="font-family: 'Cinzel'; font-size: 2.5rem;">Spiritual Library</h2>
+            <p>Sacred texts and hymns for daily worship</p>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="openTab(event, 'ashtottara')">Ashtottara</button>
+            <button class="tab-btn" onclick="openTab(event, 'stotram')">Stotram</button>
+            <button class="tab-btn" onclick="openTab(event, 'dwadasa')">Dwadasa Nama</button>
+        </div>
+
+        <div id="ashtottara" class="tab-content active">
+            <span class="stotra-title">Sri Manasa Devi Ashtottara Shatanamavali</span>
+            <div class="stotra-text">
+ōṁ mānasādēvyai namaḥ | ōṁ parāśaktyai namaḥ | ōṁ mahādēvyai namaḥ | 
+ōṁ kaśyapamānasaputrikāyai namaḥ | ōṁ nirantaradhyānaniṣṭhāyai namaḥ | 
+ōṁ ēkāgracittāyai namaḥ | ōṁ tāpasyai namaḥ | ōṁ śrīkaryai namaḥ...
+(108 Divine Names for worship)
+            </div>
+            <a href="https://stotranidhi.com/en/sri-manasa-devi-ashtottara-shatanamavali-in-english/" target="_blank" style="color:var(--saffron)">Read full on Stotra Nidhi</a>
+        </div>
+
+        <div id="stotram" class="tab-content">
+            <span class="stotra-title">Dhanvantari Kruta Stotram</span>
+            <div class="stotra-text">
+"cārucampakavarṇābhāṁ sarvāṅgasumanōharām |
+īṣaddhāsyaprasannāsyāṁ śōbhitāṁ sūkṣmavāsasā ||"
+
+Namaḥ siddhisvarūpāyai siddhidāyai namō namaḥ |
+Namaḥ kaśyapakanyāyai varadāyai namō namaḥ ||
+            </div>
+        </div>
+
+        <div id="dwadasa" class="tab-content">
+            <span class="stotra-title">Dwadasa Nama Stotram</span>
+            <div class="stotra-text">
+1. Jaratkāru  2. Jagadgaurī  3. Manasā  4. Siddhayōginī
+5. Vaiṣṇavī  6. Nāgabhaginī  7. Śaivī  8. Nāgēśvarī
+9. Jaratkārupriyā  10. Āstīkamātā  11. Viṣaharī  12. Mahājñānayutā
+
+(Reciting these 12 names removes the fear of snakes)
+            </div>
+        </div>
     </section>
 
+    
+    <section id="gallery" class="gallery-section">
+        <h2 style="font-family: 'Cinzel'; color: var(--maroon); font-size: 2.5rem;">Temple Gallery</h2>
+        <p>Glimpses of the sacred architecture and construction</p>
+        <div class="gallery-grid">
+            <script>
+                for(let i=1; i<=20; i++) {
+                    document.write(`
+                        <div class="gallery-item">
+                            <img src="images/${i}.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Temple+Photo+${i}'" alt="Temple Image">
+                        </div>
+                    `);
+                }
+            </script>
+        </div>
+    </section>
+
+
+    <div class="carousel-container">
+        <div class="carousel-slide" id="carousel">
+            <img src="https://i.ebayimg.com/images/g/mwsAAOSwhDNk9xSZ/s-l1200.jpg" alt="Mandir">
+            <img src="https://rukminim2.flixcart.com/image/850/1000/kovsvbk0/religious-frame/6/z/v/dcreation4005-suninow-original-imag38hk4fj6zgf4.jpeg?q=90" alt="Maanasaa Devi">
+            <img src="https://i.pinimg.com/736x/6a/01/e8/6a01e81c0b48fa81f6ac466098ff8d21.jpg" alt="Ancient Statue">
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2026 Sri Maanasaa Devi Temple. All Spiritual Rights Reserved.</p>
+        <p><b>Maanasaa Devi Temple, Chittedu Village</b></p>
+        <p>Kota Mandal, Tirupathi District, Andhra Pradesh</p>
+        <div style="margin-top: 20px; font-size: 0.8rem; color: #777;">
+            Spiritual content courtesy of Stotra Nidhi • Developed for Devotees
+        </div>
     </footer>
 
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script>
-        // Scroll Reveal Animation Logic
+        // Tab Logic
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Scroll Reveal Logic
         window.addEventListener('scroll', () => {
-            const cards = document.querySelectorAll('.card');
-            const triggerBottom = window.innerHeight / 5 * 4;
-
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                if(cardTop < triggerBottom) {
-                    card.classList.add('reveal');
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var revealTop = reveals[i].getBoundingClientRect().top;
+                if (revealTop < windowHeight - 100) {
+                    reveals[i].classList.add('active');
                 }
-            });
+            }
         });
-
-        // Trigger on load for elements in view
         window.dispatchEvent(new Event('scroll'));
+
+        
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+
+        // Carousel Logic
+        let index = 0;
+        function showNextSlide() {
+            const slides = document.getElementById('carousel');
+            index = (index + 1) % 3; // Change '3' to match number of carousel images
+            slides.style.transform = `translateX(-${index * 100}%)`;
+        }
+        setInterval(showNextSlide, 4000);
     </script>
 </body>
 </html>
