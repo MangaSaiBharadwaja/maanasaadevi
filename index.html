@@ -262,18 +262,23 @@
     <section id="gallery" class="gallery-section">
         <h2 style="font-family: 'Cinzel'; color: var(--maroon); font-size: 2.5rem;">Temple Gallery</h2>
         <p>Glimpses of the sacred architecture and construction</p>
-        <div class="gallery-grid">
-            <script>
-                for(let i=1; i<=20; i++) {
-                    document.write(`
-                        <div class="gallery-item">
-                            <img src="images/${i}.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Temple+Photo+${i}'" alt="Temple Image">
-                        </div>
-                    `);
-                }
-            </script>
-        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
     </section>
+
+    <script>
+        // Populate gallery from static/images/
+        const galleryGrid = document.getElementById('galleryGrid');
+        for(let i=1; i<=20; i++) {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            galleryItem.innerHTML = `
+                <img src="static/images/${i}.jpg" 
+                     onerror="this.src='https://via.placeholder.com/300x200?text=Temple+Photo+${i}'" 
+                     alt="Temple Image ${i}">
+            `;
+            galleryGrid.appendChild(galleryItem);
+        }
+    </script>
 
 
     <div class="carousel-container">
