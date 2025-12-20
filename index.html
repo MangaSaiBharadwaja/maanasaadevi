@@ -128,6 +128,87 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         footer { background: #111; color: white; padding: 40px; text-align: center; border-top: 5px solid var(--gold); }
+
+        /* --- Documentation Button --- */
+        .doc-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: var(--gold);
+            color: #111;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .doc-button:hover {
+            background: var(--saffron);
+            transform: scale(1.05);
+        }
+
+        /* --- PDF Modal --- */
+        .pdf-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            overflow: hidden;
+        }
+        .pdf-modal.active { display: flex; align-items: center; justify-content: center; }
+        .pdf-container {
+            width: 90%;
+            height: 90%;
+            background: white;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .pdf-header {
+            background: var(--maroon);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .close-pdf {
+            background: var(--gold);
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .pdf-viewer {
+            width: 100%;
+            height: calc(100% - 50px);
+            border: none;
+        }
+
+        /* --- Anti-Screenshot Protection --- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
@@ -269,7 +350,7 @@
     <script>
         // Populate gallery from static/images/
         const galleryGrid = document.getElementById('galleryGrid');
-        for(let i=1; i<=20; i++) {
+        for(let i=1; i<=23; i++) {
             const galleryItem = document.createElement('div');
             galleryItem.className = 'gallery-item';
             galleryItem.innerHTML = `
@@ -293,10 +374,22 @@
     <footer>
         <p><b>Maanasaa Devi Temple, Chittedu Village</b></p>
         <p>Kota Mandal, Tirupathi District, Andhra Pradesh</p>
+        <button class="doc-button" onclick="openDocumentation()">📄 Documentation</button>
         <div style="margin-top: 20px; font-size: 0.8rem; color: #777;">
-            Spiritual content courtesy of Stotra Nidhi • Developed for Devotees
+            Spiritual content courtesy of <b>Stotra Nidhi</b> • Developed for Devotees 
         </div>
     </footer>
+
+    <!-- PDF Modal -->
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-container">
+            <div class="pdf-header">
+                <h3>Temple Documentation</h3>
+                <button class="close-pdf" onclick="closePDF()">Close</button>
+            </div>
+            <iframe id="pdfViewer" class="pdf-viewer no-select"></iframe>
+        </div>
+    </div>
 
 
     
@@ -343,6 +436,76 @@
             slides.style.transform = `translateX(-${index * 100}%)`;
         }
         setInterval(showNextSlide, 4000);
+
+        // Anti-Screenshot and Download Protection
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Disable specific keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, PrintScreen
+            if (e.keyCode === 123 || // F12
+                (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+                (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+                (e.ctrlKey && e.keyCode === 85) || // Ctrl+U
+                (e.ctrlKey && e.keyCode === 83) || // Ctrl+S
+                e.keyCode === 44) { // PrintScreen
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable text selection on sensitive areas
+        document.body.classList.add('no-select');
+
+        // Detect screenshot attempts (Windows Snipping Tool, etc.)
+        document.addEventListener('keyup', function(e) {
+            if (e.key === 'PrintScreen') {
+                navigator.clipboard.writeText('');
+                alert('Screenshots are disabled for security purposes.');
+            }
+        });
+
+        // Prevent dragging images
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Additional protection for PDF
+        document.getElementById('pdfViewer').addEventListener('load', function() {
+            try {
+                const iframeDoc = this.contentDocument || this.contentWindow.document;
+                iframeDoc.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+            } catch(e) {
+                // Cross-origin restrictions may prevent this
+            }
+        });
+
+        // Watermark overlay for additional protection
+        // window.addEventListener('load', function() {
+        //     const watermark = document.createElement('div');
+        //     watermark.style.cssText = `
+        //         position: fixed;
+        //         top: 50%;
+        //         left: 50%;
+        //         transform: translate(-50%, -50%) rotate(-45deg);
+        //         font-size: 80px;
+        //         color: rgba(0, 0, 0, 0.05);
+        //         pointer-events: none;
+        //         z-index: 1000;
+        //         font-weight: bold;
+        //         white-space: nowrap;
+        //     `;
+        //     watermark.textContent = 'PROTECTED CONTENT';
+        //     document.body.appendChild(watermark);
+        // });
     </script>
 </body>
 </html>
