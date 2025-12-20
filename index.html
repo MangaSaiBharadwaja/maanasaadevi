@@ -213,6 +213,99 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        /* --- Image Preview Modal --- */
+        .image-preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 4000;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-preview-modal.active {
+            display: flex;
+        }
+        .preview-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .preview-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
+        }
+        .preview-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: #111;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .preview-close:hover {
+            background: var(--saffron);
+            transform: scale(1.1);
+        }
+        .preview-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(212, 175, 55, 0.8);
+            color: #111;
+            border: none;
+            padding: 20px 15px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .preview-nav:hover {
+            background: var(--gold);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .preview-prev {
+            left: 20px;
+        }
+        .preview-next {
+            right: 20px;
+        }
+        .preview-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
@@ -347,18 +440,90 @@
     </section>
 
     <script>
-        // Populate gallery from static/images/
+        // Gallery image preview functionality
+        let currentImageIndex = 0;
+        const totalImages = 23;
         const galleryGrid = document.getElementById('galleryGrid');
-        for(let i=1; i<=23; i++) {
+
+        // Populate gallery from static/images/
+        for(let i=1; i<=totalImages; i++) {
             const galleryItem = document.createElement('div');
             galleryItem.className = 'gallery-item';
+            galleryItem.style.cursor = 'pointer';
             galleryItem.innerHTML = `
                 <img src="static/images/${i}.jpeg" 
                      onerror="this.src='https://via.placeholder.com/300x200?text=Temple+Photo+${i}'" 
-                     alt="Temple Image ${i}">
+                     alt="Temple Image ${i}"
+                     data-index="${i}">
             `;
+            galleryItem.addEventListener('click', function() {
+                openImagePreview(i);
+            });
             galleryGrid.appendChild(galleryItem);
         }
+
+        // Open image preview
+        function openImagePreview(index) {
+            currentImageIndex = index;
+            const modal = document.getElementById('imagePreviewModal');
+            const previewImage = document.getElementById('previewImage');
+            const counter = document.getElementById('previewCounter');
+            
+            previewImage.src = `static/images/${index}.jpeg`;
+            previewImage.onerror = function() {
+                this.src = `https://via.placeholder.com/800x600?text=Temple+Photo+${index}`;
+            };
+            counter.textContent = `${index} / ${totalImages}`;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close image preview
+        function closeImagePreview() {
+            const modal = document.getElementById('imagePreviewModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Show next image
+        function showNextImage() {
+            currentImageIndex++;
+            if (currentImageIndex > totalImages) {
+                currentImageIndex = 1;
+            }
+            openImagePreview(currentImageIndex);
+        }
+
+        // Show previous image
+        function showPreviousImage() {
+            currentImageIndex--;
+            if (currentImageIndex < 1) {
+                currentImageIndex = totalImages;
+            }
+            openImagePreview(currentImageIndex);
+        }
+
+        // Keyboard navigation for image preview
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('imagePreviewModal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'ArrowRight') {
+                    showNextImage();
+                } else if (e.key === 'ArrowLeft') {
+                    showPreviousImage();
+                } else if (e.key === 'Escape') {
+                    closeImagePreview();
+                }
+            }
+        });
+
+        // Close preview when clicking outside the image
+        document.getElementById('imagePreviewModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImagePreview();
+            }
+        });
     </script>
 
 
@@ -395,6 +560,17 @@
             </div>
             <iframe id="pdfViewer" class="pdf-viewer no-select"></iframe>
         </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div class="image-preview-modal" id="imagePreviewModal">
+        <button class="preview-close" onclick="closeImagePreview()" title="Close (Esc)">✕</button>
+        <button class="preview-nav preview-prev" onclick="showPreviousImage()" title="Previous (←)">❮</button>
+        <div class="preview-content">
+            <img id="previewImage" class="preview-image" src="" alt="Preview">
+        </div>
+        <button class="preview-nav preview-next" onclick="showNextImage()" title="Next (→)">❯</button>
+        <div class="preview-counter" id="previewCounter">1 / 23</div>
     </div>
 
 
