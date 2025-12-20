@@ -56,12 +56,7 @@ def crop_images_in_folder(folder_path, output_folder=None, method='center', exte
     folder_path = Path(folder_path)
     
     # Create output folder if specified, otherwise use 'cropped' subfolder
-    if output_folder is None:
-        output_folder = folder_path / 'cropped'
-    else:
-        output_folder = Path(output_folder)
-    
-    output_folder.mkdir(exist_ok=True)
+    output_folder = folder_path
     
     # Process all images in the folder
     processed_count = 0
